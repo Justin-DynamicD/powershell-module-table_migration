@@ -1,0 +1,23 @@
+TOPIC
+    about_adfs-management
+    
+SHORT DESCRIPTION
+    This PowerShell module allows for the export and import of various claims and other ADFS components to make it easier to control ADFS via code.
+    
+    Working at clients that have established DTAP environments, replicating client and claim rules across environments has proven to be error prone.  This module is an attempt to streamline that process.  By wrapping some of the common ADFS cmdlets in `export`, `import`, and `copy` modules, this adds the following functionality:
+
+     - import/export accept/return json string. This makes it easier to pipe in configuration declarations, especially with non-Windows Config Management systems
+     - `-credential` and `-server` parameters were added to allow remote execution
+     - custom `destroy` attributes were added to allow removal of rules and clients
+
+SYSTEM REQUIREMENTS
+    PowerShell 4.0+
+
+OVERVIEW  
+    Most functions have native ADFS equivalents, and are merely "wrapped" in logic to make it easier to run remotely as well as standardizing input/output logic.  Therefore you can use a build server to apply a claims like so:
+
+    $myRPT = Get-Content rule.json | convertfrom-json
+    Import-ADFSClaimRule $myRPT -server adfs-srv-01
+
+SEE ALSO
+    https://github.com/Justin-DynamicD/powershell-module-adfs_management
